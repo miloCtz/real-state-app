@@ -1,9 +1,12 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var apiService = builder.AddProject<Projects.RealEstateApp_ApiService>("apiservice");
+var apiService = builder.AddProject<Projects.RealEstateApp_ApiService>("weatherapi");
 
-builder.AddProject<Projects.RealEstateApp_Web>("webfrontend")
+builder.AddNpmApp("react", "../RealEstateApp.ReactApp")
+    .WithReference(apiService)
+    .WithEnvironment("BROWSER", "none")
+    .WithHttpEndpoint(env: "VITE_PORT")
     .WithExternalHttpEndpoints()
-    .WithReference(apiService);
+    .PublishAsDockerFile();
 
 builder.Build().Run();
