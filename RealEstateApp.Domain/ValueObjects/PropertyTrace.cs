@@ -4,9 +4,9 @@ namespace RealEstateApp.Domain.Entities
 {
     public record PropertyTrace
     {
-        public DateTime DateSale { get; set; }
-        public required string Name { get; set; }
-        public decimal Value { get; set; }
-        public decimal Tax { get; set; }
+        public DateTime DateSale { get; init; }
+        public required string Name { get; init; }
+        public decimal Value { get; init; }
+        public decimal Tax { get; init; }
     }
 }

@@ -1,3 +1,4 @@
+using RealEstateApp.Domain.Common;
 using RealEstateApp.Domain.Repositories;
 using RealEstateApp.Persistence;
 
@@ -15,6 +16,13 @@ builder.AddMongo();
 
 var app = builder.Build();
 
+if(app.Environment.IsDevelopment())
+{
+    await app.Services.SeedMongo();
+}
+
+
+
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
 
@@ -23,10 +31,15 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapGet("/weatherforecast", async (IOwnerRepository ownerRepository) =>
+app.MapGet("/weatherforecast", async (IPropertyRepository propertyRepository) =>
 {
 
-    var owner = await ownerRepository.GetOwnerAsync("some-owner-id");
+    var properties = await propertyRepository.GetPropertiesAsync(new PropertyFilter()
+    {
+        PageNumber = 1,
+        PageSize = 5,
+        Address = "Maple"
+    });
     var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (

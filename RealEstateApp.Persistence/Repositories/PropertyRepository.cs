@@ -40,7 +40,7 @@ public class PropertyRepository(MongoDbContext dbContext) : IPropertyRepository
             .Include(p => p.Address)
             .Include(p => p.Price)
             .Include(p => p.IdOwner)
-            .Include(p => p.PropertyImages.FirstOrDefault());
+            .Include(p => p.PropertyImages);
         
         var totalCount = await dbContext.Properties.CountDocumentsAsync(filterDefinition);
         
