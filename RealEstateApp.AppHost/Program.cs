@@ -5,7 +5,7 @@ var mongo = builder.AddMongoDB("mongo")
 
 var mongodb = mongo.AddDatabase("mongodb");
 
-var apiService = builder.AddProject<Projects.RealEstateApp_ApiService>("weatherapi")
+var apiService = builder.AddProject<Projects.RealEstateApp_ApiService>("serviceapi")
     .WithReference(mongodb)
     .WaitFor(mongodb);
 

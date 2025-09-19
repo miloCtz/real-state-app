@@ -10,4 +10,8 @@
     <ProjectReference Include="..\RealEstateApp.ServiceDefaults\RealEstateApp.ServiceDefaults.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Aspire.MongoDB.Driver" Version="9.4.2" />
+  </ItemGroup>
+
 </Project>
