@@ -1,3 +1,5 @@
+using RealEstateApp.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire components.
@@ -5,6 +7,10 @@ builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
+
+
+//Add MongoDb Client
+builder.AddMongo();
 
 var app = builder.Build();
 

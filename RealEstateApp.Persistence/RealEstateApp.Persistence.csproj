@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\RealEstateApp.Domain\RealEstateApp.Domain.csproj" />
+    <ProjectReference Include="..\RealEstateApp.ServiceDefaults\RealEstateApp.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.MongoDB.Driver" Version="9.4.2" />
+  </ItemGroup>
+
+</Project>

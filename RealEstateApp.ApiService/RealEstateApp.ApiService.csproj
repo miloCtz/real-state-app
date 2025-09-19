@@ -7,11 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RealEstateApp.Persistence\RealEstateApp.Persistence.csproj" />
     <ProjectReference Include="..\RealEstateApp.ServiceDefaults\RealEstateApp.ServiceDefaults.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Aspire.MongoDB.Driver" Version="9.4.2" />
+    <ProjectReference Include="..\RealEstateApp.Domain\RealEstateApp.Domain.csproj" />
   </ItemGroup>
 
 </Project>
