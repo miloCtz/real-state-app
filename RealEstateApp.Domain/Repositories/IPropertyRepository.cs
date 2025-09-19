@@ -1,9 +1,10 @@
-namespace RealEstateApp.Domain.Repositories;
+using RealEstateApp.Domain.Common;
 using RealEstateApp.Domain.Entities;
 
+namespace RealEstateApp.Domain.Repositories;
 
 public interface IPropertyRepository
 {
     Task<Property?> GetPropertyAsync(string id);
-    Task<IEnumerable<Property>> GetPropertiesAsync();
+    Task<PagedResult<Property>> GetPropertiesAsync(PropertyFilter filter);
 }
