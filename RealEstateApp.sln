@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateApp.Domain", "Rea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateApp.Persistence", "RealEstateApp.Persistence\RealEstateApp.Persistence.csproj", "{DAF77F95-502D-4842-920B-AD6295998701}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateApp.Infrastructure", "RealEstateApp.Infrastructure\RealEstateApp.Infrastructure.csproj", "{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{DAF77F95-502D-4842-920B-AD6295998701}.Release|x64.Build.0 = Release|Any CPU
 		{DAF77F95-502D-4842-920B-AD6295998701}.Release|x86.ActiveCfg = Release|Any CPU
 		{DAF77F95-502D-4842-920B-AD6295998701}.Release|x86.Build.0 = Release|Any CPU
+		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Debug|x64.Build.0 = Debug|Any CPU
+		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Debug|x86.Build.0 = Debug|Any CPU
+		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Release|x64.ActiveCfg = Release|Any CPU
+		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Release|x64.Build.0 = Release|Any CPU
+		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Release|x86.ActiveCfg = Release|Any CPU
+		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
