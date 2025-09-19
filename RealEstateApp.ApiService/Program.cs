@@ -1,6 +1,10 @@
+using Mapster;
+using MapsterMapper;
+using RealEstateApp.ApiService.Dtos;
 using RealEstateApp.Domain.Common;
 using RealEstateApp.Domain.Repositories;
 using RealEstateApp.Persistence;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,52 +14,58 @@ builder.AddServiceDefaults();
 // Add services to the container.
 builder.Services.AddProblemDetails();
 
+// Add Mapster
+var typeAdapterConfig = TypeAdapterConfig.GlobalSettings;
+typeAdapterConfig.Scan(Assembly.GetExecutingAssembly());
+builder.Services.AddSingleton(typeAdapterConfig);
+builder.Services.AddScoped<IMapper, ServiceMapper>();
 
 //Add MongoDb Client
 builder.AddMongo();
 
 var app = builder.Build();
 
-if(app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     await app.Services.SeedMongo();
 }
 
-
-
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
 
-var summaries = new[]
+// GET: api/properties (with optional filtering)
+app.MapGet("/api/properties", async (
+    [AsParameters] PropertyFilter filter,
+    IPropertyRepository propertyRepository,
+    IMapper mapper) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var properties = await propertyRepository.GetPropertiesAsync(filter);
+    var propertyListDto = mapper.Map<PropertyListDto>(properties);
+    return Results.Ok(propertyListDto);
+})
+.WithName("GetProperties")
+.WithTags("Properties");
 
-app.MapGet("/weatherforecast", async (IPropertyRepository propertyRepository) =>
+// GET: api/properties/{id}
+app.MapGet("/api/properties/{id}", async (
+    string id,
+    IPropertyRepository propertyRepository,
+    IMapper mapper) =>
 {
+    var property = await propertyRepository.GetPropertyAsync(id);
 
-    var properties = await propertyRepository.GetPropertiesAsync(new PropertyFilter()
+    if (property is null)
     {
-        PageNumber = 1,
-        PageSize = 5,
-        Address = "Maple"
-    });
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
+        return Results.NotFound();
+    }
+
+    var propertyDto = mapper.Map<PropertyDto>(property);
+    return Results.Ok(propertyDto);
+})
+.WithName("GetProperty")
+.WithTags("Properties");
+
 
 app.MapDefaultEndpoints();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
