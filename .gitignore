@@ -68,4 +68,3 @@ lerna-debug.log*
 # Aspire
 .aspire/
 *.Development.json
-launchSettings.json

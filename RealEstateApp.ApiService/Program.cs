@@ -1,5 +1,6 @@
 using Mapster;
 using MapsterMapper;
+using Microsoft.OpenApi.Models;
 using RealEstateApp.ApiService.Dtos;
 using RealEstateApp.Domain.Common;
 using RealEstateApp.Domain.Repositories;
@@ -14,6 +15,23 @@ builder.AddServiceDefaults();
 // Add services to the container.
 builder.Services.AddProblemDetails();
 
+// Add Swagger/OpenAPI
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "Real Estate API", 
+        Version = "v1",
+        Description = "API for managing real estate properties",
+        Contact = new OpenApiContact
+        {
+            Name = "Real Estate Team",
+            Email = "support@realestate.example.com"
+        }
+    });
+});
+
 // Add Mapster
 var typeAdapterConfig = TypeAdapterConfig.GlobalSettings;
 typeAdapterConfig.Scan(Assembly.GetExecutingAssembly());
@@ -27,7 +45,14 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    await app.Services.SeedMongo();
+    await app.Services.SeedMongo();    
+    
+    app.UseSwagger();
+    app.UseSwaggerUI(c => 
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Real Estate API v1");
+        c.RoutePrefix = "swagger"; // Serve Swagger UI at /swagger
+    });
 }
 
 // Configure the HTTP request pipeline.
@@ -44,7 +69,8 @@ app.MapGet("/api/properties", async (
     return Results.Ok(propertyListDto);
 })
 .WithName("GetProperties")
-.WithTags("Properties");
+.WithTags("Properties")
+.WithOpenApi();
 
 // GET: api/properties/{id}
 app.MapGet("/api/properties/{id}", async (
@@ -63,9 +89,9 @@ app.MapGet("/api/properties/{id}", async (
     return Results.Ok(propertyDto);
 })
 .WithName("GetProperty")
-.WithTags("Properties");
+.WithTags("Properties")
+.WithOpenApi();
 
 
 app.MapDefaultEndpoints();
-
 app.Run();
