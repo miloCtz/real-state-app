@@ -1,3 +1,4 @@
+using RealEstateApp.Domain.Repositories;
 using RealEstateApp.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,8 +23,10 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/weatherforecast", async (IOwnerRepository ownerRepository) =>
 {
+
+    var owner = await ownerRepository.GetOwnerAsync("some-owner-id");
     var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
