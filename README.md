@@ -8,6 +8,7 @@ Before running this application, make sure you have the following prerequisites 
 
 - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) - Required to run .NET 9 applications
 - [Node.js](https://nodejs.org/) (v18 or later) - Required for the React frontend
+- [Docker](https://www.docker.com/get-started) - Required for containerized services
 - Visual Studio 2025 or Visual Studio Code with the following extensions:
   - C# Dev Kit
   - .NET Aspire SDK Components
@@ -15,9 +16,12 @@ Before running this application, make sure you have the following prerequisites 
 ## Project Structure
 
 - `RealEstateApp.ApiService/` - Backend API service
-- `RealEstateApp.Web/` - Blazor Web Frontend
-- `RealEstateApp.ReactApp/` - React Frontend
+- `RealEstateApp.ApiService.Tests/` - API service unit and integration tests
 - `RealEstateApp.AppHost/` - Aspire Host Project (orchestrates all services)
+- `RealEstateApp.Domain/` - Domain models, entities and business logic
+- `RealEstateApp.Infrastructure/` - Cross-cutting concerns and infrastructure services
+- `RealEstateApp.Persistence/` - Data access and repository implementations
+- `RealEstateApp.ReactApp/` - React Frontend
 - `RealEstateApp.ServiceDefaults/` - Shared service configurations and defaults
 
 ## Getting Started
@@ -51,6 +55,9 @@ dotnet build
 
 # Run the Aspire orchestrator
 dotnet run --project RealEstateApp.AppHost/RealEstateApp.AppHost.csproj
+
+# Run tests
+dotnet test
 ```
 
 ## Accessing the Application
@@ -58,7 +65,7 @@ dotnet run --project RealEstateApp.AppHost/RealEstateApp.AppHost.csproj
 Once the application is running:
 
 - Aspire Dashboard: https://localhost:17266
-  - Login using the token provided in the console output
+- Login using the token provided in the console output
 - Web Frontend (Blazor): http://localhost:[port] (port shown in Aspire Dashboard)
 - API Service: http://localhost:[port] (port shown in Aspire Dashboard)
 - React Frontend: http://localhost:[port] (port shown in Aspire Dashboard)
@@ -73,9 +80,7 @@ Once the application is running:
 ## Technologies
 
 - .NET 9 with Aspire 9.4.1
-- Blazor
 - React with Vite
-- Entity Framework Core
 - Azure Service Dependencies (if applicable)
 
 ## Common Issues
