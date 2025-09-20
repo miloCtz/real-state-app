@@ -1,10 +1,12 @@
 using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using RealEstateApp.Infrastructure.Exceptions;
 using Serilog;
 using Serilog.Events;
 using System.Reflection;
@@ -20,7 +22,7 @@ public static class ServiceExtensions
     {
         // Create a bootstrap logger for startup errors
         Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Debug()
+            .MinimumLevel.Information()
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
             .Enrich.FromLogContext()
@@ -128,6 +130,26 @@ public static class ServiceExtensions
     public static WebApplication UseSerilogLogging(this WebApplication app)
     {
         app.UseSerilogRequestLogging();
+        return app;
+    }
+    
+    /// <summary>
+    /// Adds global exception handling
+    /// </summary>
+    public static WebApplicationBuilder AddGlobalExceptionHandler(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+        builder.Services.AddProblemDetails();
+        
+        return builder;
+    }
+    
+    /// <summary>
+    /// Configures global exception handling middleware
+    /// </summary>
+    public static WebApplication UseGlobalExceptionHandler(this WebApplication app)
+    {
+        app.UseExceptionHandler();
         return app;
     }
 }
