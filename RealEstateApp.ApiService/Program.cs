@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Mvc;
 using RealEstateApp.ApiService.Dtos;
 using RealEstateApp.Domain.Common;
 using RealEstateApp.Domain.Repositories;
 using RealEstateApp.Infrastructure;
 using RealEstateApp.Persistence;
 using Serilog;
+using System.Net;
 using System.Reflection;
 
 try
@@ -15,13 +17,11 @@ try
     // Add custom infrastructure services
     builder.AddSerilog();
     builder.AddSwagger();
+    builder.AddGlobalExceptionHandler();
     builder.AddMapster(Assembly.GetExecutingAssembly(), typeof(RealEstateApp.Infrastructure.ServiceExtensions).Assembly);
     
     // Add service defaults & Aspire components.
     builder.AddServiceDefaults();
-
-    // Add services to the container.
-    builder.Services.AddProblemDetails();
 
     //Add MongoDb Client
     builder.AddMongo();
@@ -34,7 +34,7 @@ try
     }
 
     // Configure the HTTP request pipeline.
-    app.UseExceptionHandler();
+    app.UseGlobalExceptionHandler();
     
     // Configure Swagger
     app.UseSwaggerUI();
@@ -76,7 +76,15 @@ try
         if (property is null)
         {
             logger.LogWarning("Property with ID {PropertyId} not found", id);
-            return Results.NotFound();
+            var notFoundProblem = new ProblemDetails
+            {
+                Status = (int)HttpStatusCode.NotFound,
+                Title = "Resource not found",
+                Detail = $"Property with ID {id} was not found.",
+                Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.4"
+            };
+
+            return Results.NotFound(notFoundProblem);
         }
 
         logger.LogInformation("Retrieved property: {PropertyName}, Address: {PropertyAddress}", property.Name, property.Address);
