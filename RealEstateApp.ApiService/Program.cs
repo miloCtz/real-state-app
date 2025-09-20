@@ -1,25 +1,24 @@
-using Microsoft.AspNetCore.Mvc;
 using RealEstateApp.ApiService.Dtos;
+using RealEstateApp.ApiService.Endpoints;
 using RealEstateApp.Domain.Common;
 using RealEstateApp.Domain.Repositories;
 using RealEstateApp.Infrastructure;
 using RealEstateApp.Persistence;
 using Serilog;
-using System.Net;
 using System.Reflection;
 
 try
 {
     Log.Information("Starting Real Estate API");
-    
+
     var builder = WebApplication.CreateBuilder(args);
-    
+
     // Add custom infrastructure services
     builder.AddSerilog();
     builder.AddSwagger();
     builder.AddGlobalExceptionHandler();
     builder.AddMapster(Assembly.GetExecutingAssembly(), typeof(RealEstateApp.Infrastructure.ServiceExtensions).Assembly);
-    
+
     // Add service defaults & Aspire components.
     builder.AddServiceDefaults();
 
@@ -30,15 +29,15 @@ try
 
     if (app.Environment.IsDevelopment())
     {
-        await app.Services.SeedMongo();    
+        await app.Services.SeedMongo();
     }
 
     // Configure the HTTP request pipeline.
     app.UseGlobalExceptionHandler();
-    
+
     // Configure Swagger
     app.UseSwaggerUI();
-    
+
     // Configure Serilog request logging
     app.UseSerilogLogging();
 
@@ -49,18 +48,22 @@ try
         MapsterMapper.IMapper mapper,
         ILogger<Program> logger) =>
     {
-        logger.LogInformation("Getting properties with filter: Name={Name}, Address={Address}, MinPrice={MinPrice}, MaxPrice={MaxPrice}, Page={Page}, PageSize={PageSize}",
-            filter.Name, filter.Address, filter.MinPrice, filter.MaxPrice, filter.PageNumber, filter.PageSize);
-
-        var properties = await propertyRepository.GetPropertiesAsync(filter);
-        var propertyListDto = mapper.Map<PropertyListDto>(properties);
-        
-        logger.LogInformation("Retrieved {Count} properties of {TotalCount} total", properties.Items.Count(), properties.TotalCount);
-        return Results.Ok(propertyListDto);
+        return await PropertyEndpoints.GetPropertiesHandler(filter, propertyRepository, mapper, logger);
     })
     .WithName("GetProperties")
     .WithTags("Properties")
-    .WithOpenApi();
+    .WithOpenApi(operation =>
+    {
+        operation.Summary = "Get a paginated list of properties";
+        operation.Description = "Returns a paginated list of properties with optional filtering by name, address, price range, and pagination parameters.";
+        operation.Responses["200"].Description = "Success - Returns a paginated list of properties";
+        operation.Responses["400"].Description = "Bad Request - Invalid filter parameters";
+        operation.Responses["500"].Description = "Internal Server Error - An unexpected error occurred";
+        return operation;
+    })
+    .Produces<PropertyListDto>(StatusCodes.Status200OK)
+    .ProducesProblem(StatusCodes.Status400BadRequest)
+    .ProducesProblem(StatusCodes.Status500InternalServerError);
 
     // GET: api/properties/{id}
     app.MapGet("/api/properties/{id}", async (
@@ -69,31 +72,22 @@ try
         MapsterMapper.IMapper mapper,
         ILogger<Program> logger) =>
     {
-        logger.LogInformation("Getting property with ID: {PropertyId}", id);
-        
-        var property = await propertyRepository.GetPropertyAsync(id);
-
-        if (property is null)
-        {
-            logger.LogWarning("Property with ID {PropertyId} not found", id);
-            var notFoundProblem = new ProblemDetails
-            {
-                Status = (int)HttpStatusCode.NotFound,
-                Title = "Resource not found",
-                Detail = $"Property with ID {id} was not found.",
-                Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.4"
-            };
-
-            return Results.NotFound(notFoundProblem);
-        }
-
-        logger.LogInformation("Retrieved property: {PropertyName}, Address: {PropertyAddress}", property.Name, property.Address);
-        var propertyDto = mapper.Map<PropertyDto>(property);
-        return Results.Ok(propertyDto);
+        return await PropertyEndpoints.GetPropertyHandler(id, propertyRepository, mapper, logger);
     })
     .WithName("GetProperty")
     .WithTags("Properties")
-    .WithOpenApi();
+    .WithOpenApi(operation =>
+    {
+        operation.Summary = "Get property by ID";
+        operation.Description = "Returns detailed information about a specific property by its unique identifier.";
+        operation.Responses["200"].Description = "Success - Returns the property information";
+        operation.Responses["404"].Description = "Not Found - Property with the specified ID was not found";
+        operation.Responses["500"].Description = "Internal Server Error - An unexpected error occurred";
+        return operation;
+    })
+    .Produces<PropertyDto>(StatusCodes.Status200OK)
+    .ProducesProblem(StatusCodes.Status404NotFound)
+    .ProducesProblem(StatusCodes.Status500InternalServerError);
 
     app.MapDefaultEndpoints();
 

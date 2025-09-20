@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateApp.Persistence",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateApp.Infrastructure", "RealEstateApp.Infrastructure\RealEstateApp.Infrastructure.csproj", "{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstateApp.ApiService.Tests", "RealEstateApp.ApiService.Tests\RealEstateApp.ApiService.Tests.csproj", "{0C8DDC9F-C260-4CA9-9811-433592971C02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,18 @@ Global
 		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Release|x64.Build.0 = Release|Any CPU
 		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Release|x86.ActiveCfg = Release|Any CPU
 		{7920855D-5D21-4CEF-BFA0-FC8AC757B02B}.Release|x86.Build.0 = Release|Any CPU
+		{0C8DDC9F-C260-4CA9-9811-433592971C02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C8DDC9F-C260-4CA9-9811-433592971C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C8DDC9F-C260-4CA9-9811-433592971C02}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0C8DDC9F-C260-4CA9-9811-433592971C02}.Debug|x64.Build.0 = Debug|Any CPU
+		{0C8DDC9F-C260-4CA9-9811-433592971C02}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0C8DDC9F-C260-4CA9-9811-433592971C02}.Debug|x86.Build.0 = Debug|Any CPU
+		{0C8DDC9F-C260-4CA9-9811-433592971C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C8DDC9F-C260-4CA9-9811-433592971C02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C8DDC9F-C260-4CA9-9811-433592971C02}.Release|x64.ActiveCfg = Release|Any CPU
+		{0C8DDC9F-C260-4CA9-9811-433592971C02}.Release|x64.Build.0 = Release|Any CPU
+		{0C8DDC9F-C260-4CA9-9811-433592971C02}.Release|x86.ActiveCfg = Release|Any CPU
+		{0C8DDC9F-C260-4CA9-9811-433592971C02}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
