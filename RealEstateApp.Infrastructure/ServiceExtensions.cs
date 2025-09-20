@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RealEstateApp.Infrastructure.Exceptions;
 using Serilog;
+using System.IO;
 using Serilog.Events;
 using System.Reflection;
 
@@ -70,6 +71,20 @@ public static class ServiceExtensions
                     Email = "support@realestate.example.com"
                 }
             });
+            
+            // Include XML comments for API documentation
+            var apiXmlFile = Path.Combine(AppContext.BaseDirectory, "RealEstateApp.ApiService.xml");
+            var domainXmlFile = Path.Combine(AppContext.BaseDirectory, "RealEstateApp.Domain.xml");
+            
+            if (File.Exists(apiXmlFile))
+            {
+                c.IncludeXmlComments(apiXmlFile);
+            }
+            
+            if (File.Exists(domainXmlFile))
+            {
+                c.IncludeXmlComments(domainXmlFile);
+            }
         });
 
         return builder;
