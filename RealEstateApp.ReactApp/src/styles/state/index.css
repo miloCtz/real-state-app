@@ -1,0 +1,117 @@
+/**
+ * State styles - Following SMACSS methodology
+ * Contains states of components like hover, active, expanded, etc.
+ */
+
+/* Button States */
+.details-button:hover,
+.home-link:hover {
+  background-color: var(--primary-hover);
+}
+
+.pagination-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-color: var(--text-light);
+}
+
+.pagination-button:not(:disabled):hover {
+  background-color: var(--primary-hover);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+/* Nav Link States */
+.app-nav a:hover:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+}
+
+/* Mobile Menu States */
+.app-nav.menu-open {
+  display: flex;
+}
+
+/* Property Card States */
+.property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.property-card:hover .property-image {
+  transform: scale(1.05);
+}
+
+/* Table Row States */
+.traces-table tr:hover {
+  background-color: rgba(30, 58, 138, 0.08); /* Primary color with low opacity for subtle but contrasting hover */
+  transition: background-color 0.2s ease;
+}
+
+/* Owner Photo Error State */
+.owner-photo-error::after {
+  content: 'Photo not available';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.75rem;
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius-round);
+  color: var(--text-light);
+}
+
+/* Image Error State */
+.image-error::before {
+  content: 'Image not available';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Focus States */
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Loading & Error States */
+.loading-state {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.error-state {
+  border-color: var(--error-color);
+}
+
+/* Form Input States */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(30, 58, 138, 0.2);
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: var(--bg-light);
+  cursor: not-allowed;
+  opacity: 0.7;
+}

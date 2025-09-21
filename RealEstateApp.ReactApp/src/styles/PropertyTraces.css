@@ -1,8 +1,11 @@
-/* Property Traces styles */
-.property-traces {
-  margin-top: 1rem;
-  overflow-x: auto;
-}
+/**
+ * DEPRECATED FILE - DO NOT USE
+ * 
+ * This file is no longer used in the application.
+ * All CSS has been migrated to the SMACSS structure in /src/styles/modules/PropertyTraces.css.
+ * 
+ * See /src/styles/README.md for more information about the new CSS architecture.
+ */
 
 .traces-table {
   width: 100%;

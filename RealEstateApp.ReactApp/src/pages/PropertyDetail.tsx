@@ -5,7 +5,6 @@ import { Property } from '../models/Property';
 import PropertyImages from '../components/PropertyDetail/PropertyImages';
 import PropertyInfo from '../components/PropertyDetail/PropertyInfo';
 import PropertyTraces from '../components/PropertyDetail/PropertyTraces';
-import '../styles/PropertyTraces.css';
 
 // Import all images from the assets/images folder
 const imageContext = import.meta.glob('../assets/images/*.jpg', { eager: true });

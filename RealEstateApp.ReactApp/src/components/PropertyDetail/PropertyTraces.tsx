@@ -32,9 +32,9 @@ const PropertyTraces = ({ traces, formatPrice, formatDate }: PropertyTracesProps
           <tbody>
             {traces.map((trace) => (
               <tr key={trace.id}>
-                <td>{formatDate(trace.dateCreated)}</td>
+                <td className="property-address">{formatDate(trace.dateCreated)}</td>
                 <td>{trace.name}</td>
-                <td>{formatPrice(trace.value)}</td>
+                <td className="price-display">{formatPrice(trace.value)}</td>
                 <td>{formatPrice(trace.tax)}</td>
               </tr>
             ))}

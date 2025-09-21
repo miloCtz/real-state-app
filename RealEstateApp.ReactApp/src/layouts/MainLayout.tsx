@@ -13,7 +13,7 @@ const MainLayout = () => {
 
   return (
     <div className="app-container">
-      <header className="app-header">
+      <header className="app-header app-header-fixed">
         <div className="header-content">
           <h1 className="app-title">Real Estate Application</h1>
           
@@ -32,6 +32,8 @@ const MainLayout = () => {
           {/* Add more navigation links as needed */}
         </nav>
       </header>
+      
+      <div className="header-spacer"></div>
       
       <main className="app-main">
         <Outlet />

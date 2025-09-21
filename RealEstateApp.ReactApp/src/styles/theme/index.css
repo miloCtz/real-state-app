@@ -1,0 +1,88 @@
+/**
+ * Theme styles - Following SMACSS methodology
+ * Contains theme-specific variables and overrides
+ */
+
+/* Light Theme (default) */
+:root {
+  /* Colors */
+  --primary-color: #1e3a8a;
+  --primary-hover: #1e40af;
+  --text-dark: #282c34;
+  --text-light: #6b7280;
+  --border-color: #e5e7eb;
+  --bg-light: #f8f9fa;
+  --error-color: #dc2626;
+  
+  /* Typography - Elegant Real Estate Font Combination */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Raleway', sans-serif;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Theme Specific */
+  --body-background: #ffffff;
+  --card-background: #ffffff;
+  --header-text: #ffffff;
+  --footer-background: #f8f9fa;
+}
+
+/* Dark Theme - Can be enabled with a class on the html/body element */
+.dark-theme {
+  /* Colors */
+  --primary-color: #3b82f6;
+  --primary-hover: #60a5fa;
+  --text-dark: #e2e8f0;
+  --text-light: #94a3b8;
+  --border-color: #334155;
+  --bg-light: #1e293b;
+  --error-color: #ef4444;
+  
+  /* Theme Specific */
+  --body-background: #0f172a;
+  --card-background: #1e293b;
+  --header-text: #ffffff;
+  --footer-background: #1e293b;
+}
+
+/* Media query for preferred color scheme */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-theme) {
+    /* Colors */
+    --primary-color: #3b82f6;
+    --primary-hover: #60a5fa;
+    --text-dark: #e2e8f0;
+    --text-light: #94a3b8;
+    --border-color: #334155;
+    --bg-light: #1e293b;
+    --error-color: #ef4444;
+    
+    /* Theme Specific */
+    --body-background: #0f172a;
+    --card-background: #1e293b;
+    --header-text: #ffffff;
+    --footer-background: #1e293b;
+  }
+}
+
+/* Theme Specific Overrides */
+body {
+  background-color: var(--body-background);
+  color: var(--text-dark);
+}
+
+.app-header {
+  color: var(--header-text);
+}
+
+.app-footer {
+  background-color: var(--footer-background);
+}
+
+.property-card,
+.info-section {
+  background-color: var(--card-background);
+}

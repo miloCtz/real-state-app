@@ -17,6 +17,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
         onClick={() => onPageChange(currentPage - 1)} 
         disabled={currentPage === 1}
         className="pagination-button"
+        aria-label="Go to previous page"
       >
         Previous
       </button>
@@ -27,6 +28,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
         onClick={() => onPageChange(currentPage + 1)} 
         disabled={currentPage === totalPages}
         className="pagination-button"
+        aria-label="Go to next page"
       >
         Next
       </button>

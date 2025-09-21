@@ -1,12 +1,11 @@
-:root {
-  --primary-color: #1e3a8a;
-  --primary-hover: #1e40af;
-  --text-dark: #282c34;
-  --text-light: #6b7280;
-  --border-color: #e5e7eb;
-  --bg-light: #f8f9fa;
-  --error-color: #dc2626;
-}
+/**
+ * DEPRECATED FILE - DO NOT USE
+ * 
+ * This file is no longer used in the application.
+ * All CSS has been migrated to the SMACSS structure in /src/styles/.
+ * 
+ * See /src/styles/README.md for more information about the new CSS architecture.
+ */
 
 /* App structure */
 .app-container {

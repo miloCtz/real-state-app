@@ -1,0 +1,41 @@
+/**
+ * Main CSS entry point - Following SMACSS methodology
+ * 
+ * This file imports all CSS files in the correct cascade order:
+ * 1. Theme - Defines variables
+ * 2. Base - Defines base styles
+ * 3. Layout - Defines structural components
+ * 4. Modules - Defines reusable components
+ * 5. State - Defines component states
+ */
+
+/* Theme Imports - Variables and theme settings */
+@import './theme/index.css';
+
+/* Base Imports - CSS reset, typography, basic elements */
+@import './base/index.css';
+
+/* Layout Imports - Major layout components */
+@import './layout/index.css';
+
+/* Module Imports - Reusable components */
+@import './modules/index.css';
+@import './modules/typography.css';
+
+/* State Imports - Component states */
+@import './state/index.css';
+
+/* Responsive styles for specific components that aren't covered elsewhere */
+@media (max-width: 480px) {
+  .property-traces {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    width: calc(100% + 2rem);
+  }
+  
+  .traces-table th,
+  .traces-table td {
+    padding: 0.4rem;
+    font-size: 0.75rem;
+  }
+}

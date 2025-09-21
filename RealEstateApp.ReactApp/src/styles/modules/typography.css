@@ -1,0 +1,82 @@
+/**
+ * Enhanced typography for real estate app
+ * Contains special text treatments for real estate specific elements
+ */
+
+/* Price display for properties */
+.price-display {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+}
+
+/* For property feature highlights */
+.feature-highlight {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-style: italic;
+  color: var(--primary-color);
+}
+
+/* Property address stylized text */
+.property-address {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-light);
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+
+/* For property type badges */
+.property-type-badge {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+}
+
+/* For testimonials or property descriptions */
+.elegant-quote {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.6;
+  color: var(--text-dark);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.elegant-quote::before {
+  content: '"';
+  font-size: 3rem;
+  font-family: var(--font-heading);
+  position: absolute;
+  left: 0;
+  top: -1rem;
+  color: var(--primary-color);
+  opacity: 0.3;
+}
+
+/* Agent or owner name */
+.agent-name {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: 1.2rem;
+  color: var(--text-dark);
+}
+
+/* Real estate slogan or tagline */
+.real-estate-slogan {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: var(--font-weight-light);
+  text-align: center;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: var(--text-dark);
+  max-width: 800px;
+  margin: 2rem auto;
+}
