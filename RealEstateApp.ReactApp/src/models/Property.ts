@@ -10,6 +10,17 @@ export interface Owner {
 }
 
 /**
+ * Represents a property trace (history/activity)
+ */
+export interface PropertyTrace {
+  id: string;
+  dateCreated: string; // ISO date string
+  name: string;
+  value: number;
+  tax: number;
+}
+
+/**
  * Represents a property image
  */
 export interface PropertyImage {
@@ -31,6 +42,7 @@ export interface Property {
   idOwner: number;
   owner?: Owner;
   images: PropertyImage[];
+  traces?: PropertyTrace[];
 }
 
 /**

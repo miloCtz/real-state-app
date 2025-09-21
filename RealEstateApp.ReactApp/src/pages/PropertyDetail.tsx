@@ -2,6 +2,13 @@ import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { PropertyService } from '../services/PropertyService';
 import { Property } from '../models/Property';
+import PropertyImages from '../components/PropertyDetail/PropertyImages';
+import PropertyInfo from '../components/PropertyDetail/PropertyInfo';
+import PropertyTraces from '../components/PropertyDetail/PropertyTraces';
+import '../styles/PropertyTraces.css';
+
+// Import all images from the assets/images folder
+const imageContext = import.meta.glob('../assets/images/*.jpg', { eager: true });
 
 /**
  * PropertyDetail page component that displays detailed information about a property
@@ -62,6 +69,20 @@ const PropertyDetail = () => {
     navigate(-1);
   };
 
+  // Function to get the image URL from the assets folder
+  const getImageUrl = (imageName: string): string => {
+    // Look for the image in the imported context
+    const imageUrl = imageContext[`../assets/images/${imageName}`];
+    
+    // If the image exists in the context, return its URL
+    if (imageUrl) {
+      return (imageUrl as { default: string }).default;
+    }
+    
+    // Default placeholder if image not found
+    return '';
+  };
+
   return (
     <div className="property-detail-container">
       <button onClick={handleBack} className="back-button">
@@ -82,50 +103,26 @@ const PropertyDetail = () => {
       
       {!loading && !error && property && (
         <div className="property-detail">
-          <h1>{property.name}</h1>
+          <h1 className="property-title">{property.name}</h1>
           
-          <div className="property-images">
-            {property.images.filter(img => img.enabled).length > 0 ? (
-              property.images
-                .filter(img => img.enabled)
-                .map((image) => (
-                  <img 
-                    key={image.id} 
-                    src={image.file} 
-                    alt={`${property.name} - Image ${image.id}`}
-                    className="property-detail-image"
-                  />
-                ))
-            ) : (
-              <div className="no-image">No images available</div>
-            )}
-          </div>
+          <PropertyImages 
+            propertyName={property.name}
+            images={property.images}
+            getImageUrl={getImageUrl}
+          />
           
-          <div className="property-info">
-            <div className="info-section">
-              <h2>Property Details</h2>
-              <p><strong>Price:</strong> {formatPrice(property.price)}</p>
-              <p><strong>Address:</strong> {property.address}</p>
-              <p><strong>Year Built:</strong> {property.year}</p>
-              <p><strong>Internal Code:</strong> {property.codeInternal}</p>
-            </div>
-            
-            {property.owner && (
-              <div className="info-section">
-                <h2>Owner Information</h2>
-                {property.owner.photo && (
-                  <img 
-                    src={property.owner.photo} 
-                    alt={property.owner.name}
-                    className="owner-photo"
-                  />
-                )}
-                <p><strong>Name:</strong> {property.owner.name}</p>
-                <p><strong>Address:</strong> {property.owner.address}</p>
-                <p><strong>Birthday:</strong> {formatDate(property.owner.birthday)}</p>
-              </div>
-            )}
-          </div>
+          <PropertyInfo 
+            property={property}
+            formatPrice={formatPrice}
+            formatDate={formatDate}
+            getImageUrl={getImageUrl}
+          />
+          
+          <PropertyTraces
+            traces={property.traces}
+            formatPrice={formatPrice}
+            formatDate={formatDate}
+          />
         </div>
       )}
     </div>

@@ -34,7 +34,7 @@ public static class ServiceExtensions
         }
         var owner = await EnsureOwnerExistsAsync(dbContext);
         
-        var properties = GenerateProperties(20, owner.Id);
+        var properties = GenerateProperties(20, owner);
         await dbContext.Properties.InsertManyAsync(properties);
     }
     
@@ -58,7 +58,7 @@ public static class ServiceExtensions
         return owner;
     }
     
-    private static List<Property> GenerateProperties(int count, string ownerId)
+    private static List<Property> GenerateProperties(int count, Owner owner)
     {
         var random = new Random();
         var properties = new List<Property>();
@@ -84,17 +84,18 @@ public static class ServiceExtensions
                 Price = random.Next(100000, 1000000),
                 CodeInternal = $"PROP-{i + 1:D4}",
                 Year = random.Next(1950, 2023),
-                IdOwner = int.Parse(ownerId.Substring(0, 8), System.Globalization.NumberStyles.HexNumber) % 1000000
+                IdOwner = owner.Id,
+                Owner = owner
             };
             
             // Add some property images
-            var imageCount = random.Next(1, 4);
+            var imageCount = random.Next(2, 4);
             for (int j = 0; j < imageCount; j++)
             {
                 property.PropertyImages.Add(new PropertyImage
                 {
                     IdProperty = int.Parse(property.Id.Substring(0, 8), System.Globalization.NumberStyles.HexNumber) % 1000000,
-                    File = $"property_{i + 1:D4}_image_{j + 1}.jpg",
+                    File = $"property_{random.Next(1, 20)}.jpg",
                     Enabled = true
                 });
             }

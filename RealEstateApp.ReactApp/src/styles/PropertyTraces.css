@@ -1,0 +1,51 @@
+/* Property Traces styles */
+.property-traces {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.traces-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.traces-table th,
+.traces-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.traces-table th {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: #475569;
+}
+
+.traces-table tr:hover {
+  background-color: #f1f5f9;
+}
+
+/* Responsive styles for mobile devices */
+@media (max-width: 768px) {
+  .traces-table th,
+  .traces-table td {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .property-traces {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    width: calc(100% + 2rem);
+  }
+  
+  .traces-table th,
+  .traces-table td {
+    padding: 0.4rem;
+    font-size: 0.75rem;
+  }
+}

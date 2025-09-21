@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { PropertyService } from '../services/PropertyService';
 import { PropertyList, Property } from '../models/Property';
+import PropertyGrid from '../components/Home/PropertyGrid';
+import Pagination from '../components/Home/Pagination';
+
+// Import all images from the assets/images folder
+const imageContext = import.meta.glob('../assets/images/*.jpg', { eager: true });
 
 /**
  * Home page component that displays a list of properties
@@ -46,55 +50,18 @@ const Home = () => {
     }).format(price);
   };
 
-  // Render property cards
-  const renderPropertyCards = (properties: Property[]) => {
-    return properties.map((property) => (
-      <div key={property.id} className="property-card">
-        <h3>{property.name}</h3>
-        <p>Address: {property.address}</p>
-        <p>Price: {formatPrice(property.price)}</p>
-        <p>Year Built: {property.year}</p>
-        {property.images.length > 0 && property.images.some(img => img.enabled) && (
-          <img 
-            src={property.images.find(img => img.enabled)?.file || property.images[0].file} 
-            alt={property.name}
-            className="property-image"
-          />
-        )}
-        <div className="property-actions">
-          <Link to={`/property/${property.id}`} className="details-button">
-            DETAILS
-          </Link>
-        </div>
-      </div>
-    ));
-  };
-
-  // Render pagination controls
-  const renderPagination = () => {
-    if (!propertyList || propertyList.totalPages <= 1) return null;
-
-    return (
-      <div className="pagination">
-        <button 
-          onClick={() => handlePageChange(currentPage - 1)} 
-          disabled={currentPage === 1}
-          className="pagination-button"
-        >
-          Previous
-        </button>
-        <span className="page-info">
-          Page {currentPage} of {propertyList.totalPages}
-        </span>
-        <button 
-          onClick={() => handlePageChange(currentPage + 1)} 
-          disabled={currentPage === propertyList.totalPages}
-          className="pagination-button"
-        >
-          Next
-        </button>
-      </div>
-    );
+  // Function to get the image URL from the assets folder
+  const getImageUrl = (imageName: string): string => {
+    // Look for the image in the imported context
+    const imageUrl = imageContext[`../assets/images/${imageName}`];
+    
+    // If the image exists in the context, return its URL
+    if (imageUrl) {
+      return (imageUrl as { default: string }).default;
+    }
+    
+    // Default placeholder if image not found
+    return '';
   };
 
   return (
@@ -111,10 +78,16 @@ const Home = () => {
       
       {!loading && !error && propertyList && propertyList.items.length > 0 && (
         <>
-          <div className="property-grid">
-            {renderPropertyCards(propertyList.items)}
-          </div>
-          {renderPagination()}
+          <PropertyGrid 
+            properties={propertyList.items} 
+            getImageUrl={getImageUrl}
+            formatPrice={formatPrice}
+          />
+          <Pagination 
+            currentPage={currentPage}
+            totalPages={propertyList.totalPages}
+            onPageChange={handlePageChange}
+          />
         </>
       )}
     </div>

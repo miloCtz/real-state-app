@@ -20,11 +20,19 @@ public class MappingConfig : IRegister
     {
         // Property to PropertyDto mapping
         config.NewConfig<Property, PropertyDto>()
-            .Map(dest => dest.Images, src => src.PropertyImages);
+            .Map(dest => dest.Images, src => src.PropertyImages)
+            .Map(dest => dest.Traces, src => src.PropertyTraces)
+            .Map(dest => dest.Owner, src => src.Owner);
             
         // Owner to OwnerDto mapping
         config.NewConfig<Owner, OwnerDto>()
             .Map(dest => dest.Id, src => ConvertToInt(src.Id));
+            
+        // PropertyTrace to PropertyTraceDto mapping
+        config.NewConfig<PropertyTrace, PropertyTraceDto>()
+            .Map(dest => dest.DateCreated, src => src.DateSale)
+            // Generate a random Id for PropertyTraceDto since PropertyTrace doesn't have one
+            .Map(dest => dest.Id, src => Guid.NewGuid().ToString());
             
         // PagedResult<Property> to PropertyListDto mapping
         config.NewConfig<PagedResult<Property>, PropertyListDto>()

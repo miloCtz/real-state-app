@@ -6,7 +6,7 @@ import { Property, PropertyFilter, PropertyList } from '../models/Property';
 /**
  * Base URL for API requests
  */
-const API_BASE_URL = '/api';
+const API_BASE_URL = '/api/api';
 
 /**
  * Handles HTTP requests to the Property API endpoints

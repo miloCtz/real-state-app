@@ -14,7 +14,7 @@ namespace RealEstateApp.Domain.Entities
         public int Year { get; init; }
 
         // Foreign key for Owner
-        public int IdOwner { get; init; }
+        public string IdOwner { get; init; }
 
         // Navigation properties
         public virtual Owner Owner { get; set; } = null!;

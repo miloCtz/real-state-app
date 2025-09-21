@@ -59,6 +59,7 @@ public static class PropertyEndpoints
 
         logger.LogInformation("Retrieved property: {PropertyName}, Address: {PropertyAddress}", property.Name, property.Address);
         var propertyDto = mapper.Map<PropertyDto>(property);
+        
         return Results.Ok(propertyDto);
     }
 }

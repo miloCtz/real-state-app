@@ -38,7 +38,7 @@ public class PropertyDto
     /// <summary>
     /// ID of the property owner
     /// </summary>
-    public int IdOwner { get; set; }
+    public string IdOwner { get; set; } = default!;
     
     /// <summary>
     /// Information about the property owner
@@ -49,6 +49,11 @@ public class PropertyDto
     /// Collection of property images
     /// </summary>
     public List<PropertyImageDto> Images { get; set; } = new();
+    
+    /// <summary>
+    /// Collection of property traces (history/activity)
+    /// </summary>
+    public List<PropertyTraceDto> Traces { get; set; } = new();
 }
 
 /// <summary>
@@ -59,7 +64,7 @@ public class OwnerDto
     /// <summary>
     /// Unique identifier of the owner
     /// </summary>
-    public int Id { get; set; }
+    public string Id { get; set; } = default!;
     
     /// <summary>
     /// Name of the property owner
@@ -101,6 +106,37 @@ public class PropertyImageDto
     /// Indicates whether the image is enabled/active
     /// </summary>
     public bool Enabled { get; set; }
+}
+
+/// <summary>
+/// Data transfer object for property trace information
+/// </summary>
+public class PropertyTraceDto
+{
+    /// <summary>
+    /// Unique identifier of the property trace
+    /// </summary>
+    public string Id { get; set; } = default!;
+    
+    /// <summary>
+    /// Date when the trace was created/recorded
+    /// </summary>
+    public DateTime DateCreated { get; set; }
+    
+    /// <summary>
+    /// Name or description of the trace
+    /// </summary>
+    public string Name { get; set; } = default!;
+    
+    /// <summary>
+    /// Value associated with the trace (e.g., transaction value)
+    /// </summary>
+    public decimal Value { get; set; }
+    
+    /// <summary>
+    /// Tax amount associated with the trace
+    /// </summary>
+    public decimal Tax { get; set; }
 }
 
 /// <summary>

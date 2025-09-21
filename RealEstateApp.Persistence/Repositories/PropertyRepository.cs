@@ -62,8 +62,5 @@ public class PropertyRepository(MongoDbContext dbContext) : IPropertyRepository
         };
     }
 
-    public async Task<Property?> GetPropertyAsync(string id)
-    {
-        return await dbContext.Properties.Find(p => p.Id == id).FirstOrDefaultAsync();
-    }
+    public async Task<Property?> GetPropertyAsync(string id) => await dbContext.Properties.Find(p => p.Id == id).FirstOrDefaultAsync();
 }
