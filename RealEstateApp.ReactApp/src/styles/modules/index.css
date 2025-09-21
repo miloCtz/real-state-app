@@ -3,6 +3,9 @@
  * Contains all reusable, modular components
  */
 
+/* Import component-specific module styles */
+@import './filter.css';
+
 /* Property Card Module */
 .property-card {
   border: 1px solid var(--border-color);

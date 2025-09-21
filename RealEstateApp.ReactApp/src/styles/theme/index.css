@@ -26,7 +26,7 @@
   /* Theme Specific */
   --body-background: #ffffff;
   --card-background: #ffffff;
-  --header-text: #ffffff;
+  --header-text: #f8fafc;
   --footer-background: #f8f9fa;
 }
 
@@ -44,7 +44,7 @@
   /* Theme Specific */
   --body-background: #0f172a;
   --card-background: #1e293b;
-  --header-text: #ffffff;
+  --header-text: #f1f5f9;
   --footer-background: #1e293b;
 }
 
@@ -63,7 +63,7 @@
     /* Theme Specific */
     --body-background: #0f172a;
     --card-background: #1e293b;
-    --header-text: #ffffff;
+    --header-text: #f1f5f9;
     --footer-background: #1e293b;
   }
 }
@@ -76,6 +76,19 @@ body {
 
 .app-header {
   color: var(--header-text);
+}
+
+/* Enhance header title contrast in dark mode */
+@media (prefers-color-scheme: dark) {
+  .app-title {
+    color: var(--header-text);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.dark-theme .app-title {
+  color: var(--header-text);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .app-footer {

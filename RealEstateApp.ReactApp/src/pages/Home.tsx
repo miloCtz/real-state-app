@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { PropertyService } from '../services/PropertyService';
-import { PropertyList, Property } from '../models/Property';
+import { PropertyList, PropertyFilter } from '../models/Property';
 import PropertyGrid from '../components/Home/PropertyGrid';
 import Pagination from '../components/Home/Pagination';
+import PropertyFilterComponent from '../components/Home/PropertyFilter';
 
 // Import all images from the assets/images folder
 const imageContext = import.meta.glob('../assets/images/*.jpg', { eager: true });
@@ -15,14 +16,24 @@ const Home = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [filter, setFilter] = useState<PropertyFilter>({});
   const pageSize = 10;
 
-  // Fetch properties when component mounts or page changes
+  // Fetch properties when component mounts, page changes, or filter changes
   useEffect(() => {
     const fetchProperties = async () => {
       try {
         setLoading(true);
-        const data = await PropertyService.getAllProperties(currentPage, pageSize);
+        
+        // Apply filters and pagination
+        const filterWithPagination: PropertyFilter = {
+          ...filter,
+          pageNumber: currentPage,
+          pageSize: pageSize
+        };
+        
+        // Use searchProperties instead of getAllProperties when filters are applied
+        const data = await PropertyService.searchProperties(filterWithPagination);
         setPropertyList(data);
         setError(null);
       } catch (err) {
@@ -34,11 +45,18 @@ const Home = () => {
     };
 
     fetchProperties();
-  }, [currentPage]);
+  }, [currentPage, filter]);
 
   // Handle page change
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
+  };
+  
+  // Handle filter change
+  const handleFilterChange = (newFilter: PropertyFilter) => {
+    setFilter(newFilter);
+    // Reset to first page when applying new filters
+    setCurrentPage(1);
   };
 
   // Format currency for display
@@ -67,6 +85,12 @@ const Home = () => {
   return (
     <div className="home-container">
       <h1>Available Properties</h1>
+      
+      {/* Property Filter Component */}
+      <PropertyFilterComponent 
+        onFilterChange={handleFilterChange}
+        isLoading={loading}
+      />
 
       {loading && <p className="loading-message">Loading properties...</p>}
       

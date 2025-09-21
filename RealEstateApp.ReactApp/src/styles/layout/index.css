@@ -54,8 +54,11 @@
 
 .app-title {
   font-family: var(--font-heading);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   letter-spacing: -0.02em;
+  color: var(--header-text);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  font-size: 1.5rem;
 }
 
 .app-footer {
@@ -245,4 +248,18 @@
   .property-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
+}
+
+/* Home Page Layout */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.home-container h1 {
+  font-family: var(--heading-font);
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
 }
