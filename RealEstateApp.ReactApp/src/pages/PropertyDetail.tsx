@@ -5,6 +5,7 @@ import { Property } from '../models/Property';
 import PropertyImages from '../components/PropertyDetail/PropertyImages';
 import PropertyInfo from '../components/PropertyDetail/PropertyInfo';
 import PropertyTraces from '../components/PropertyDetail/PropertyTraces';
+import '../styles/PropertyTraces.css';
 
 // Import all images from the assets/images folder
 const imageContext = import.meta.glob('../assets/images/*.jpg', { eager: true });
@@ -27,7 +28,7 @@ const PropertyDetail = () => {
         setLoading(false);
         return;
       }
-
+      
       try {
         setLoading(true);
         const data = await PropertyService.getPropertyById(id);
@@ -115,12 +116,6 @@ const PropertyDetail = () => {
             formatPrice={formatPrice}
             formatDate={formatDate}
             getImageUrl={getImageUrl}
-          />
-          
-          <PropertyTraces
-            traces={property.traces}
-            formatPrice={formatPrice}
-            formatDate={formatDate}
           />
         </div>
       )}
