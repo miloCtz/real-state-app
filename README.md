@@ -1,6 +1,6 @@
 # Real Estate App
 
-A modern real estate application built with .NET 9 Aspire, Blazor, and React.
+A modern real estate application built with .NET 9 Aspire and React.
 
 ## Prerequisites
 
@@ -66,7 +66,6 @@ Once the application is running:
 
 - Aspire Dashboard: https://localhost:17266
 - Login using the token provided in the console output
-- Web Frontend (Blazor): http://localhost:[port] (port shown in Aspire Dashboard)
 - API Service: http://localhost:[port] (port shown in Aspire Dashboard)
 - React Frontend: http://localhost:[port] (port shown in Aspire Dashboard)
 
@@ -80,7 +79,9 @@ Once the application is running:
 ## Technologies
 
 - .NET 9 with Aspire 9.4.1
-- React with Vite
+- React 19 with TypeScript and Vite
+- MongoDB for data storage
+- Jest and React Testing Library for frontend testing
 - Azure Service Dependencies (if applicable)
 
 ## Common Issues
