@@ -117,6 +117,13 @@ const PropertyDetail = () => {
             formatDate={formatDate}
             getImageUrl={getImageUrl}
           />
+
+          <PropertyTraces
+            traces={property.traces}
+            formatPrice={formatPrice}
+            formatDate={formatDate}
+          />
+          
         </div>
       )}
     </div>
